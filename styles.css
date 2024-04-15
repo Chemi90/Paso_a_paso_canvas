@@ -1,0 +1,14 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evita barras de desplazamiento */
+    height: 100%; /* Ocupa toda la altura de la pantalla */
+}
+
+canvas {
+    display: block; /* Elimina márgenes extra */
+    background-color: #f0f0f0;
+    width: 100vw; /* Ajusta el canvas al 100% del ancho de la ventana */
+    height: calc(100vh - 50px); /* Ajusta el canvas al 100% de la altura de la ventana menos el espacio de la descripción */
+    margin-top: 50px; /* Espacio para la descripción */
+}
