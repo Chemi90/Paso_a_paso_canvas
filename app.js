@@ -44,6 +44,7 @@ const steps = [
 
 let currentStep = 0;
 let failCount = 0; // Contador de intentos fallidos
+let touchHandled = false; // Bandera para controlar eventos de toque
 
 function resizeCanvas() {
     const ratio = window.devicePixelRatio || 1;
@@ -113,6 +114,11 @@ function getCanvasCoords(event) {
 }
 
 function handleInteraction(event) {
+    if (event.type === 'click' && touchHandled) {
+        touchHandled = false; // Reset the flag after the click is handled
+        return;
+    }
+
     const { x, y } = getCanvasCoords(event);
     const pixelData = detectionCtx.getImageData(x, y, 1, 1).data;
 
@@ -159,6 +165,9 @@ async function drawOverlayOnly(stepIndex) {
 }
 
 canvas.addEventListener('click', handleInteraction);
-canvas.addEventListener('touchstart', handleInteraction);
+canvas.addEventListener('touchstart', function(event) {
+    touchHandled = true;  // Set the flag when touchstart is handled
+    handleInteraction(event);
+});
 
 drawStep(currentStep);
